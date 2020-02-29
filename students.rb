@@ -59,8 +59,13 @@ class StudentApp
     if (!students)  
       @conn ||= PG.connect :dbname => @@database_uri.path[1..], :user => @@database_uri.user, 
         :password => @@database_uri.password, port: @@database_uri.port, host: @@database_uri.hostname 
-        
-      dataset = @conn.exec(SELECT_STUDENTS, [page_size, page]) 
+      
+      begin
+        dataset = @conn.exec(SELECT_STUDENTS, [page_size, page]) 
+      rescue
+        #limpa uma conexão com problemas
+        @conn = nil
+      end
       students = []
     
       dataset.each do |result|
