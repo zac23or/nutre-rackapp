@@ -1,7 +1,3 @@
-# paths:
-#   /:
-#     file.dir: examples/doc_root
-#     mruby.handler-file: /path/to/hello.rb
 
 load "students.rb"
 load "pog.rb"
