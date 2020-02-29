@@ -6,8 +6,6 @@ GEM
     pg (1.2.2)
     puma (4.3.3)
       nio4r (~> 2.0)
-    puma-heroku (1.1.0)
-      puma (>= 3.0, < 5.0)
     rack (2.2.2)
     redis (4.1.3)
 
@@ -17,7 +15,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   pg
-  puma-heroku
+  puma
   rack
   redis
 
