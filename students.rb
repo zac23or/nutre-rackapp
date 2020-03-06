@@ -49,7 +49,7 @@ class StudentApp
     now = Time.now
     inited = false
     students = nil
-    if redis
+    if true 
       cache_ident="#{students}-#{page}-#{page_size}"
       @redis ||= Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
       @redis.auth @@redis_uri.password 
@@ -63,6 +63,7 @@ class StudentApp
         @conn.type_map_for_results  = @tm
       end
       begin
+        @redis.get('key')
         dataset = @conn.exec(SELECT_STUDENTS, [page_size, page]) 
       rescue
         #limpa uma conexão com problemas
@@ -70,7 +71,7 @@ class StudentApp
         @tm = nil
       end
       students = []
-    
+      @e
       dataset.each do |result|
         Student.init(result.keys) if !inited
         inited = true 
