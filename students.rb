@@ -49,10 +49,10 @@ class StudentApp
     now = Time.now
     inited = false
     students = nil
-    if true 
+    @redis ||= Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
+    @redis.auth @@redis_uri.password if @@redis_uri.password 
+    if redis 
       cache_ident="#{students}-#{page}-#{page_size}"
-      @redis ||= Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
-      @redis.auth @@redis_uri.password if @@redis_uri.password 
       students = @redis.get(cache_ident)
     end
     if (!students)  
