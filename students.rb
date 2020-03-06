@@ -52,7 +52,7 @@ class StudentApp
     if true 
       cache_ident="#{students}-#{page}-#{page_size}"
       @redis ||= Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
-      @redis.auth @@redis_uri.password 
+      @redis.auth @@redis_uri.password if @@redis_uri.password 
       students = @redis.get(cache_ident)
     end
     if (!students)  
