@@ -8,16 +8,17 @@ class RdMulti
   @@data = File.read('fixture.json')
   @@fixture = JSON.parse(@@data)
   @@fixture_multi = @@fixture.each_with_index.map{|v, i| [i, v]}.flatten 
-  @@fixture_keys = 19.times.to_a
+  @@times = (ENV['PAGE_SIZE'] || '20').to_i
+  @@fixture_keys = (ENV['PAGE_SIZE'] || '20').to_i.times.to_a
   def call(env)
     redis = Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
     redis.auth @@redis_uri.password if @@redis_uri.password 
     now_simple = Time.now
 
-    19.times do |i|
-      redis.set(i,@@fixture[i])
+    @@times.times do |i|
+      redis.set(i,@@fixture[0])
     end
-    19.times do |i|
+    @@times.times do |i|
       redis.get(i)
     end
 
