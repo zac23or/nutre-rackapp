@@ -4,6 +4,7 @@ load "pog.rb"
 load "bcrpt.rb"
 load "rd.rb"
 load "rdmulti.rb"
+load "rdmulti_return.rb"
 load "rdsg.rb"
 load "jsn.rb"
 
@@ -21,6 +22,8 @@ class App
       return $rdsg.call(env)
     elsif env["REQUEST_PATH"] == "/rdmulti"
       return $rdmulti.call(env)           
+    elsif env["REQUEST_PATH"] == "/rdmultir"
+      return $rdmulti_return.call(env)           
     elsif env["REQUEST_PATH"] == "/json"
       return $jsn.call(env)           
     else
@@ -42,7 +45,9 @@ class App
         <a href='/rd'>Teste abertura/fechamento conexão redis</a><br>
         <a href='/rdsg'>Teste setar/pegar valor em chave redis</a><br>
         <h1>Redis GET/MULTI GET</h1>
-        <a href='/rdmulti'>Teste setar/pegar valor em chave redis(normal 20 vezes, vc multi)</a><br>
+        <a href='/rdmulti'>Teste setar/pegar valor em chave redis(normal 20 vezes vs  multi)</a><br>
+        <h1>Redis MULTI GET RETURN</h1>
+        <a href='/rdmultir'>retorna 20 students via multiget</a><br>
         <h1>BCrypt</h1>
         <a href='/bcrypt'>Teste login com bcrypt</a><br>
         <h1>JSON</h1>
