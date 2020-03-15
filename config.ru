@@ -6,6 +6,8 @@ load "rd.rb"
 load "rdmulti.rb"
 load "rdmulti_return.rb"
 load "rdnomulti_return.rb"
+load "mc.rb"
+load 'mcmulti.rb'
 load "rdsg.rb"
 load "jsn.rb"
 
@@ -27,6 +29,10 @@ class App
       return $rdmulti_return.call(env)           
     elsif env["REQUEST_PATH"] == "/rdnomultir"
       return $rdnomulti_return.call(env)           
+    elsif env["REQUEST_PATH"] == "/mc"
+      return $mc.call(env)           
+    elsif env["REQUEST_PATH"] == "/mcmulti"
+      return $mcmulti.call(env)           
     elsif env["REQUEST_PATH"] == "/json"
       return $jsn.call(env)           
     else
@@ -53,6 +59,10 @@ class App
         <a href='/rdmultir'>retorna 20 students via multiget</a><br>
         <h1>Redis  get return</h1>
         <a href='/rdnomultir'>retorna 20 students via get (1 a 1)</a><br>
+        <h1>MemCached set</h1>
+        <a href='/mc'>set 20 students (1 a 1)</a><br>
+        <h1>MemCached getMulti return</h1>
+        <a href='/mcmulti'>get 20 students (de uma vez)</a><br>
         <h1>BCrypt</h1>
         <a href='/bcrypt'>Teste login com bcrypt</a><br>
         <h1>JSON</h1>
