@@ -9,7 +9,7 @@ class Rd
   def call(env)
     now = Time.now
     redis = Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
-    redis.auth @@redis_uri.password 
+    redis.auth @@redis_uri.password  if @@redis_uri.password
     redis.close
     text = (Time.now - now).to_s
     [200,
