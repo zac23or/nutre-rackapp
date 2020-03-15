@@ -13,10 +13,9 @@ class Mcmulti
   def call(env)
     unless @cache
       @cache = Dalli::Client.new(
-        ENV["MEMCACHEDCLOUD_SERVERS"].split(','), 
-        :username => ENV["MEMCACHEDCLOUD_USERNAME"], 
-        :password => ENV["MEMCACHEDCLOUD_PASSWORD"])
-
+        ENV["MEMCACHIER_SERVERS"].split(','),
+        :username => ENV["MEMCACHIER_USERNAME"],
+        :password => ENV["MEMCACHIER_PASSWORD"])
     end
     begin
       json = @cache.get_multi(*@@fixture_keys).values.to_json
