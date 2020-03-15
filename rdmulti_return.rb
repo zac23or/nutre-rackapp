@@ -3,8 +3,6 @@
 #     file.dir: examples/doc_root
 #     mruby.handler-file: /path/to/hello.rb
 
-require 'byebug'
-require 'clipboard'
 
 class RdMultiReturn 
   @@redis_uri = URI(ENV["REDIS_URL"])
