@@ -12,11 +12,15 @@ class RdMultiReturn
   @@times = (ENV['PAGE_SIZE'] || '20').to_i
   @@fixture_keys = (ENV['PAGE_SIZE'] || '20').to_i.times.to_a
   def call(env)
-    redis = Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
-    redis.auth @@redis_uri.password if @@redis_uri.password 
-    now_simple = Time.now
-
-    json = redis.mget(@@fixture_keys).map{|item| JSON.parse(item)}.to_json 
+    unless @redis
+      @redis ||= Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
+      @redis.auth @@redis_uri.password if @@redis_uri.password 
+    end
+    begin
+      json = @redis.mget(@@fixture_keys).map{|item| JSON.parse(item)}.to_json 
+    rescue 
+     @redis = nil
+    end
     [200,
      {
       "content-type" => "application/json; charset=utf-8",
