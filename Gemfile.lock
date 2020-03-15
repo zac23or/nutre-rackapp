@@ -2,7 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     bcrypt (3.1.13)
-    byebug (11.1.1)
+    dalli (2.7.10)
     nio4r (2.5.2)
     pg (1.2.2)
     puma (4.3.3)
@@ -15,7 +15,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
-  byebug
+  dalli
   pg
   puma
   rack
