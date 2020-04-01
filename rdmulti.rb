@@ -8,7 +8,7 @@ class RdMulti
   @@data = File.read('fixture.json')
   @@fixture = JSON.parse(@@data)
   @@fixture_multi = @@fixture.each_with_index.map{|v, i| [i, v.to_json]}.flatten
-  @@times = (ENV['PAGE_SIZE'] || '20').to_i
+  @@times = @@fixture.count 
   @@fixture_keys = (ENV['PAGE_SIZE'] || '20').to_i.times.to_a
   def call(env)
     redis = Redis.new(host: @@redis_uri.hostname, port: @@redis_uri.port)
